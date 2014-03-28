@@ -1,6 +1,6 @@
 Name:          jackson-dataformat-xml
 Version:       2.2.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
@@ -70,6 +70,9 @@ sed -i 's/\r//' LICENSE-2.0.txt
 %doc LICENSE-2.0.txt README.md release-notes/*
 
 %changelog
+* Fri Mar 28 2014 Michael Simacek <msimacek@redhat.com> - 2.2.2-4
+- Use Requires: java-headless rebuild (#1067528)
+
 * Sat Sep 07 2013 gil cattaneo <puntogil@libero.it> 2.2.2-3
 - remove sub-package doc
 
