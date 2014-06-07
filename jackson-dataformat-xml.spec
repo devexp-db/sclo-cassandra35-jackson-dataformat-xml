@@ -1,6 +1,6 @@
 Name:          jackson-dataformat-xml
 Version:       2.2.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
@@ -70,6 +70,9 @@ sed -i 's/\r//' LICENSE-2.0.txt
 %doc LICENSE-2.0.txt README.md release-notes/*
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Fri Mar 28 2014 Michael Simacek <msimacek@redhat.com> - 2.2.2-4
 - Use Requires: java-headless rebuild (#1067528)
 
