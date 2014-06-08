@@ -30,7 +30,7 @@ BuildRequires: maven-local
 BuildRequires: maven-enforcer-plugin
 BuildRequires: maven-plugin-build-helper
 BuildRequires: maven-site-plugin
-BuildRequires: maven-surefire-provider-junit4
+BuildRequires: maven-surefire-provider-junit
 BuildRequires: replacer
 
 BuildArch:     noarch
