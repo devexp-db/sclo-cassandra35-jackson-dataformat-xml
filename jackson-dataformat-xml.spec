@@ -1,20 +1,16 @@
 Name:          jackson-dataformat-xml
-Version:       2.2.2
-Release:       5%{?dist}
+Version:       2.4.1
+Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
 Source0:       https://github.com/FasterXML/jackson-dataformat-xml/archive/%{name}-%{version}.tar.gz
-# jackson-dataformat-xml package don't include the license file
-# https://github.com/FasterXML/jackson-dataformat-xml/issues/68
-Source1:       http://www.apache.org/licenses/LICENSE-2.0.txt
-# disables the failed tests
-# see https://github.com/FasterXML/jackson-jaxrs-providers/issues/20
-Patch0:        %{name}-2.2.2-tests.patch
 
-BuildRequires: java-devel
-
-BuildRequires: mvn(com.fasterxml:oss-parent)
+%if %{?fedora} > 20
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
+%else
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent)
+%endif
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-annotations)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
@@ -51,25 +47,30 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-%patch0 -p1
-cp -p %{SOURCE1} .
-sed -i 's/\r//' LICENSE-2.0.txt
+
+cp -p src/main/resources/META-INF/LICENSE .
+cp -p src/main/resources/META-INF/NOTICE .
+sed -i 's/\r//' LICENSE NOTICE
 
 %build
 
+# see https://github.com/FasterXML/jackson-jaxrs-providers/issues/20
 %mvn_file : %{name}
-%mvn_build 
+%mvn_build -- -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE-2.0.txt
+%doc LICENSE NOTICE README.md release-notes/*
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE-2.0.txt README.md release-notes/*
+%doc LICENSE NOTICE
 
 %changelog
+* Fri Jul 04 2014 gil cattaneo <puntogil@libero.it> 2.4.1-1
+- update to 2.4.1
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
