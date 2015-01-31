@@ -1,5 +1,5 @@
 Name:          jackson-dataformat-xml
-Version:       2.4.2
+Version:       2.5.0
 Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
@@ -52,22 +52,27 @@ cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 
+%mvn_file : %{name}
+
 %build
 
 # see https://github.com/FasterXML/jackson-jaxrs-providers/issues/20
-%mvn_file : %{name}
 %mvn_build -- -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE NOTICE README.md release-notes/*
+%doc README.md release-notes/*
+%license LICENSE NOTICE
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE NOTICE
+%license LICENSE NOTICE
 
 %changelog
+* Sat Jan 31 2015 gil cattaneo <puntogil@libero.it> 2.5.0-1
+- update to 2.5.0
+
 * Sat Sep 20 2014 gil cattaneo <puntogil@libero.it> 2.4.2-1
 - update to 2.4.2
 
