@@ -1,33 +1,25 @@
 Name:          jackson-dataformat-xml
-Version:       2.5.0
-Release:       2%{?dist}
+Version:       2.6.2
+Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
 Source0:       https://github.com/FasterXML/jackson-dataformat-xml/archive/%{name}-%{version}.tar.gz
 
-%if %{?fedora} > 20
+BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-%else
-BuildRequires: mvn(com.fasterxml.jackson:jackson-parent)
-%endif
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-annotations)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires: mvn(com.fasterxml.jackson.module:jackson-module-jaxb-annotations)
+BuildRequires: mvn(com.fasterxml.woodstox:woodstox-core)
 BuildRequires: mvn(javax.xml.stream:stax-api)
-BuildRequires: mvn(org.codehaus.woodstox:stax2-api)
-
-# test deps
 BuildRequires: mvn(junit:junit)
-BuildRequires: mvn(org.codehaus.woodstox:woodstox-core-asl)
-
-BuildRequires: maven-local
-BuildRequires: maven-enforcer-plugin
-BuildRequires: maven-plugin-build-helper
-BuildRequires: maven-site-plugin
-BuildRequires: maven-surefire-provider-junit
-BuildRequires: replacer
+BuildRequires: mvn(org.codehaus.woodstox:stax2-api)
+BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
+BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
 
@@ -70,6 +62,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 2.6.2-1
+- update to 2.6.2
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
