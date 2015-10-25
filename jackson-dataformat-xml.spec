@@ -1,5 +1,5 @@
 Name:          jackson-dataformat-xml
-Version:       2.6.2
+Version:       2.6.3
 Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
@@ -13,7 +13,6 @@ BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires: mvn(com.fasterxml.jackson.module:jackson-module-jaxb-annotations)
 BuildRequires: mvn(com.fasterxml.woodstox:woodstox-core)
-BuildRequires: mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires: mvn(javax.xml.stream:stax-api)
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.codehaus.woodstox:stax2-api)
@@ -63,6 +62,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Sun Oct 25 2015 gil cattaneo <puntogil@libero.it> 2.6.3-1
+- update to 2.6.3
+
 * Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 2.6.2-1
 - update to 2.6.2
 
