@@ -1,10 +1,13 @@
 Name:          jackson-dataformat-xml
 Version:       2.6.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
 Source0:       https://github.com/FasterXML/jackson-dataformat-xml/archive/%{name}-%{version}.tar.gz
+# fix for CVE-2016-3720 (jackson-dataformat-xml issues#190)
+# https://github.com/FasterXML/jackson-dataformat-xml/commit/f0f19a4c924d9db9a1e2830434061c8640092cc0
+Patch0:        jackson-dataformat-xml-2.6.3-CVE-2016-3720.patch
 
 BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
@@ -40,6 +43,7 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch0 -p1
 
 cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
@@ -63,6 +67,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu May 05 2016 gil cattaneo <puntogil@libero.it> 2.6.3-3
+- fix for CVE-2016-3720 (rhbz#1332727,1328427)
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
