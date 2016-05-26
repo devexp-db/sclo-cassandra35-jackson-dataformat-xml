@@ -1,6 +1,6 @@
 Name:          jackson-dataformat-xml
-Version:       2.6.3
-Release:       3%{?dist}
+Version:       2.6.6
+Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
@@ -67,6 +67,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu May 26 2016 gil cattaneo <puntogil@libero.it> - 2.6.6-1
+- update to 2.6.6
+
 * Thu May 05 2016 gil cattaneo <puntogil@libero.it> 2.6.3-3
 - fix for CVE-2016-3720 (rhbz#1332727,1328427)
 
