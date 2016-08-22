@@ -1,13 +1,10 @@
 Name:          jackson-dataformat-xml
-Version:       2.6.7
+Version:       2.7.6
 Release:       1%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
 Source0:       https://github.com/FasterXML/jackson-dataformat-xml/archive/%{name}-%{version}.tar.gz
-# fix for CVE-2016-3720 (jackson-dataformat-xml issues#190)
-# https://github.com/FasterXML/jackson-dataformat-xml/commit/f0f19a4c924d9db9a1e2830434061c8640092cc0
-Patch0:        jackson-dataformat-xml-2.6.3-CVE-2016-3720.patch
 
 BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
@@ -43,7 +40,6 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-%patch0 -p1
 
 cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
@@ -67,6 +63,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 2.7.6-1
+- update to 2.7.6
+
 * Fri Jun 24 2016 gil cattaneo <puntogil@libero.it> 2.6.7-1
 - update to 2.6.7
 
