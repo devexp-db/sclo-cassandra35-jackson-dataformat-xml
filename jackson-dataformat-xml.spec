@@ -1,6 +1,6 @@
 Name:          jackson-dataformat-xml
 Version:       2.7.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
@@ -18,8 +18,6 @@ BuildRequires: mvn(javax.xml.stream:stax-api)
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.codehaus.woodstox:stax2-api)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
@@ -63,6 +61,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu Feb 02 2017 Michael Simacek <msimacek@redhat.com> - 2.7.6-2
+- Remove BR on site-plugin and enforcer-plugin
+
 * Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 2.7.6-1
 - update to 2.7.6
 
