@@ -1,6 +1,6 @@
 Name:          jackson-dataformat-xml
 Version:       2.7.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       XML data binding extension for Jackson
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
@@ -61,6 +61,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Thu Feb 02 2017 Michael Simacek <msimacek@redhat.com> - 2.7.6-2
 - Remove BR on site-plugin and enforcer-plugin
 
