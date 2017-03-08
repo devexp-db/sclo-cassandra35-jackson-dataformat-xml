@@ -1,26 +1,31 @@
-Name:          jackson-dataformat-xml
-Version:       2.7.6
-Release:       3%{?dist}
-Summary:       XML data binding extension for Jackson
-License:       ASL 2.0
-URL:           http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
-Source0:       https://github.com/FasterXML/jackson-dataformat-xml/archive/%{name}-%{version}.tar.gz
+%{?scl:%scl_package jackson-dataformat-xml}
+%{!?scl:%global pkg_name %{name}}
 
-BuildRequires: maven-local
-BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-BuildRequires: mvn(com.fasterxml.jackson.core:jackson-annotations)
-BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
-BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
-BuildRequires: mvn(com.fasterxml.jackson.module:jackson-module-jaxb-annotations)
-BuildRequires: mvn(com.fasterxml.woodstox:woodstox-core)
-BuildRequires: mvn(com.google.code.maven-replacer-plugin:replacer)
-BuildRequires: mvn(javax.xml.stream:stax-api)
-BuildRequires: mvn(junit:junit)
-BuildRequires: mvn(org.codehaus.woodstox:stax2-api)
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
+Name:		%{?scl_prefix}jackson-dataformat-xml
+Version:	2.7.6
+Release:	4%{?dist}
+Summary:	XML data binding extension for Jackson
+License:	ASL 2.0
+URL:		http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding
+Source0:	https://github.com/FasterXML/%{pkg_name}/archive/%{pkg_name}-%{version}.tar.gz
 
-BuildArch:     noarch
+BuildRequires:	%{?scl_prefix_maven}maven-local
+BuildRequires:	%{?scl_prefix}jackson-parent
+BuildRequires:	%{?scl_prefix}jackson-annotations
+BuildRequires:	%{?scl_prefix}jackson-core
+BuildRequires:	%{?scl_prefix}jackson-databind
+BuildRequires:	%{?scl_prefix}jackson-module-jaxb-annotations
+BuildRequires:	%{?scl_prefix_maven}woodstox-core
+BuildRequires:	%{?scl_prefix}replacer
+BuildRequires:	%{?scl_prefix_java_common}bea-stax-api
+BuildRequires:	%{?scl_prefix_java_common}junit
+BuildRequires:	%{?scl_prefix_maven}stax2-api
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-bundle
+BuildRequires:	%{?scl_prefix_maven}maven-plugin-build-helper
+BuildRequires:	%{?scl_prefix}fasterxml-oss-parent
+%{?scl:Requires: %scl_runtime}
+
+BuildArch:	noarch
 
 %description
 Data format extension for Jackson (http://jackson.codehaus.org)
@@ -31,27 +36,35 @@ like JsonGenerator, JsonParser and JsonFactory. Some data-binding types
 overridden as well (ObjectMapper sub-classed as XmlMapper).
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:	Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{pkg_name}-%{pkg_name}-%{version}
 
 cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 
-%mvn_file : %{name}
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
+# change woodstox-core dependency version for scl package
+%{?scl:%pom_change_dep :woodstox-core: org.codehaus.woodstox:woodstox-core-asl:4.1.2}
+
+%mvn_file : %{pkg_name}
+%{?scl:EOF}
 
 %build
-
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 # see https://github.com/FasterXML/jackson-jaxrs-providers/issues/20
 %mvn_build -- -Dmaven.test.failure.ignore=true
+%{?scl:EOF}
 
 %install
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_install
+%{?scl:EOF}
 
 %files -f .mfiles
 %doc README.md release-notes/*
@@ -61,6 +74,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Mar 08 2017 Tomas Repik <trepik@redhat.com> - 2.7.6-4
+- scl conversion
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
